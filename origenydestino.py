@@ -1,6 +1,6 @@
 #Funcion de Registro
 
-print("Bienvenido a la agencia de viajes panchito la mejor agencia de viajes en Colombia, a continuacion se mostraran las cidades donde estamos ubicados: ")
+print("Bienvenido a la agencia de viajes DreamVentures la mejor agencia de viajes en Colombia, a continuacion se mostraran las cidades donde estamos ubicados: ")
 
 print(" 1. Bogota \n 2. Medellin \n 3. Cartagena \n 4. Barranquilla \n 5. Cali")
 

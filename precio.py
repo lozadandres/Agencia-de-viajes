@@ -22,7 +22,42 @@ def listar_reservas():
     
 
 # Función para modificar una reserva
-#def modificar_reserva(indice):
+def modificar_reserva():
+    if not reservas:
+        print("No hay reservas para modificar")
+        return
+
+    print("Reservas disponibles")
+    listar_reservas()
+
+    indice = int(input("Ingrese el número de la reserva que deseas modificar: "))
+
+    if 1 <= indice <= len(reservas):
+        reserva = reservas[indice - 1]
+        print(f"\nModificando la reserva #{indice}:")
+        
+        nuevo_num_personas = int(input("Ingrese el nuevo número de personas (o el mismo número para modificar los datos): "))
+
+        nueva_personas = []
+        for i in range(nuevo_num_personas):
+            print(f"Información de la persona {i+1}:")
+            name = input("Ingrese su nombre: ")
+            id_number = input("Ingrese su cédula: ")
+            nueva_personas.append({"name": name, "id_number": id_number})
+
+        # Actualizar la reserva con la nueva información
+        reserva['num_personas'] = nuevo_num_personas
+        reserva['personas'] = nueva_personas
+
+        # Recalcular el precio total si el número de personas cambió
+        valorc = reserva['paquete'][6].replace(".", "")
+        precio = int(valorc) * nuevo_num_personas
+        precioc = "{:,}".format(precio).replace(",", ".")
+        reserva['precio_total'] = precioc
+
+        print(f"\nReserva modificada exitosamente. Nuevo precio total: {precioc}")
+    else:
+        print("Índice no encontrado")
 
 # Función para eliminar una reserva
 def eliminar_reserva():
@@ -79,12 +114,26 @@ def choose (paquetes):
      people = []
      for i in range(number):
          print(f"Información de la persona {i+1}:")
-         name = input("Ingrese su nombre: ")
-         id_number = input("Ingrese su cédula: ")
+         # Validación del nombre
+         while True:
+            name = input("Ingrese su nombre: ").strip()
+            if name.isalpha() and len(name) > 1:  # Verifica que el nombre no esté vacío y contenga solo letras
+                  break
+            else:
+                  print("Error: El nombre debe contener solo letras y no puede estar vacío.")
+         
+         # Validación de la cédula
+         while True:
+            id_number = input("Ingrese su cédula: ").strip()
+            if id_number.isdigit() and 6 <= len(id_number) <= 10:  # Verifica que la cédula sea numérica y de longitud razonable
+                  break
+            else:
+                  print("Error: La cédula debe contener solo números y tener entre 6 y 10 dígitos.")
+         
          people.append({"name": name, "id_number": id_number})
         
      paquete=paquetes[choose-1]
-     if  choose == 1:
+     if  1 <= choose <= len(paquetes):
         valor= paquete[6]
         #Eliminar los puntos 
         valorc=valor.replace(".","")
@@ -208,7 +257,18 @@ def choose (paquetes):
                      else:
                         print("Fecha inválida. Debe estar en el formato DD/MM/AAAA.")
 
-                  codigo_referencia = input("Ingrese el código de referencia de pago: ")
+                  
+                  # obtener el id de la primera persona
+                  referencia_id_primera_persona = people[0]["id_number"]
+
+                  while True:
+                      codigo_referencia = input("Ingrese el código de referencia de pago que es el documento de identidad de la primera persona: ")
+
+                      if codigo_referencia == referencia_id_primera_persona:
+                          break
+                      else:
+                          print("código de referencia invalido")
+                      
 
                   # Guardar detalles de pago
                   detalles_pago = {

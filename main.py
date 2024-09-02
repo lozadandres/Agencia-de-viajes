@@ -1,6 +1,6 @@
 from origenydestino import validarorigenydestino
 from paquetes import paquetesListado, printpaquete
-from precio import choose, listar_reservas, eliminar_reserva
+from precio import choose, listar_reservas, eliminar_reserva, modificar_reserva
 
 def main():
 
@@ -29,12 +29,13 @@ def main():
         elif opcion == "2":
             search_option_vuel = input("Seleccione: 1. Listar reservas, 2. Modificar reserva, 3. Eliminar reserva: ")
             if search_option_vuel == "1":
-                print("seccion de listar paquetes reservados: ")
+                print("sección de listar paquetes reservados: ")
                 listar_reservas()
             elif search_option_vuel == "2":
-                print("seccion de modificacion de reserva: ")
+                print("sección de modificacion de reserva: ")
+                modificar_reserva()
             elif search_option_vuel == "3":
-                print("seccion de eliminacion de reserva: ")
+                print("sección de eliminacion de reserva: ")
                 eliminar_reserva()
             
         elif opcion == "0":
